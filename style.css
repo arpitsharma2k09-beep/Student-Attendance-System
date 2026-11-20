@@ -1,0 +1,70 @@
+/* Minimal theme: white, thin lines, one accent colour */
+:root{
+  --bg:#fff; --ink:#111; --muted:#8a8a8a; --line:#ececec; --soft:#f6f6f6;
+  --ok:#1f8a4c; --bad:#c8372d; --late:#b7791f;
+  --radius:6px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5}
+header{max-width:860px;margin:0 auto;padding:36px 20px 0;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px}
+header h1{margin:0;font-size:1rem;font-weight:600;letter-spacing:-.01em}
+nav{display:flex;gap:22px}
+nav button{background:none;border:0;border-bottom:1.5px solid transparent;color:var(--muted);padding:4px 0;font:inherit;font-size:.9rem;cursor:pointer}
+nav button:hover{color:var(--ink)}
+nav button.active{color:var(--ink);border-bottom-color:var(--ink)}
+main{max-width:860px;margin:0 auto;padding:36px 20px 80px}
+
+.card{margin-bottom:48px}
+.card h2{margin:0 0 16px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{padding:22px 0}
+.stat .n{font-size:2rem;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.stat .l{color:var(--muted);font-size:.8rem;margin-top:4px}
+
+label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:6px}
+input,select{padding:8px 10px;border:1px solid var(--line);border-radius:var(--radius);font:inherit;font-size:.9rem;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--ink)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+
+.btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:8px 16px;border-radius:var(--radius);font:inherit;font-size:.88rem;cursor:pointer}
+.btn:hover{opacity:.85}
+.btn.sec{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn.sec:hover{border-color:var(--ink);opacity:1}
+.btn.danger{background:#fff;color:var(--bad);border-color:var(--line)}
+.btn.danger:hover{border-color:var(--bad);opacity:1}
+.btn.small{padding:3px 10px;font-size:.78rem}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:12px 8px 12px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+th{color:var(--muted);font-weight:500;font-size:.75rem}
+tr:last-child td{border-bottom:0}
+
+.seg{display:inline-flex;gap:4px}
+.seg button{border:1px solid var(--line);background:#fff;padding:4px 12px;cursor:pointer;font:inherit;font-size:.8rem;color:var(--muted);border-radius:99px}
+.seg button:hover{border-color:var(--ink);color:var(--ink)}
+.seg button.p.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.seg button.a.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.seg button.l.on{background:var(--late);border-color:var(--late);color:#fff}
+
+.pill{font-size:.85rem;font-weight:600;font-variant-numeric:tabular-nums}
+.pill.good{color:var(--ok)}
+.pill.warn{color:var(--late)}
+.pill.low{color:var(--bad)}
+.bar{height:3px;background:var(--line);border-radius:99px;overflow:hidden;min-width:80px}
+.bar>i{display:block;height:100%}
+
+.empty{color:var(--muted);text-align:center;padding:32px 0;font-size:.9rem}
+.hint{color:var(--muted);font-size:.82rem;margin:0 0 12px}
+.hidden{display:none}
+textarea{width:100%;height:140px;border:1px solid var(--line);border-radius:var(--radius);padding:10px;font-family:ui-monospace,monospace;font-size:.78rem}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 16px;border-radius:var(--radius);font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.toast.show{opacity:1}
+.modal-bg{position:fixed;inset:0;background:rgba(255,255,255,.8);display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;max-width:360px;width:100%;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.modal p{margin:0 0 20px}
+
+@media(max-width:600px){header{padding-top:24px}nav{gap:16px}}

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Your Name] — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:      #e7ddc6;
+    --paper-dark: #d9cbaa;
+    --card:       #f1e9d4;
+    --ink:        #22303f;
+    --ink-soft:   #4a5b6b;
+    --stamp:      #a0402b;
+    --teal:       #3a6a63;
+    --line:       #b9a97f;
+    --hole:       #c9bb96;
+    --shadow:     rgba(34,48,63,0.18);
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(90,75,40,0.05) 28px),
+      radial-gradient(circle at 15% 10%, rgba(255,255,255,0.25), transparent 45%);
+    color:var(--ink);
+    font-family:'IBM Plex Serif', Georgia, serif;
+    line-height:1.6;
+  }
+
+  a{ color:var(--stamp); }
+
+  /* ---------- shared card unit ---------- */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow: 4px 4px 0 var(--shadow);
+    position:relative;
+  }
+  .card::before{ /* punch hole */
+    content:"";
+    position:absolute;
+    top:16px; left:16px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow: inset 0 0 0 1px var(--line), 0 0 0 1px var(--paper);
+  }
+
+  .call-number{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+
+  .section-label{
+    font-family:'Special Elite', 'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--stamp);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:28px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 10px);
+  }
+
+  section{
+    max-width:980px;
+    margin:0 auto;
+    padding:70px 24px;
+  }
+
+  /* ---------- header / drawer label ---------- */
+  header{
+    background:var(--ink);
+    color:var(--paper);
+    padding:70px 24px 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(231,221,198,0.04) 40px);
+    pointer-events:none;
+  }
+  .drawer-label{
+    max-width:980px;
+    margin:0 auto;
+    position:relative;
+  }
+  .drawer-tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--paper-dark);
+    border:1px solid rgba(231,221,198,0.35);
+    padding:4px 10px;
+    margin-bottom:22px;
+  }
+  h1.name{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    margin:0;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+  .tagline{
+    margin-top:16px;
+    font-size:1.15rem;
+    color:var(--paper-dark);
+    font-style:italic;
+    max-width:560px;
+  }
+  nav.index-tabs{
+    margin-top:44px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid rgba(231,221,198,0.3);
+  }
+  nav.index-tabs a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--paper-dark);
+    text-decoration:none;
+    padding:14px 18px 12px;
+    border-right:1px solid rgba(231,221,198,0.3);
+    transition: background 0.2s, color 0.2s;
+  }
+  nav.index-tabs a:hover{ background:var(--stamp); color:var(--paper); }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:44px;
+    align-items:start;
+  }
+  .photo-card{
+    padding:14px 14px 40px;
+    transform:rotate(-2deg);
+  }
+  .photo-card img{
+    display:block;
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    filter:sepia(0.15) contrast(1.02);
+    border:1px solid var(--line);
+  }
+  .photo-caption{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .bio-card{ padding:36px 32px 32px; }
+  .bio-card h2{
+    font-family:'Special Elite', monospace;
+    font-size:1.5rem;
+    margin:0 0 6px 40px;
+  }
+  .bio-card p{ margin:14px 0 0 40px; color:var(--ink-soft); }
+  .stamp{
+    position:absolute;
+    top:22px; right:26px;
+    border:2px solid var(--stamp);
+    color:var(--stamp);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:6px 10px;
+    transform:rotate(6deg);
+    opacity:0.85;
+    border-radius:3px;
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px,1fr));
+    gap:16px;
+  }
+  .skill-chip{
+    padding:16px 18px 14px 40px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .skill-chip .lvl{
+    font-size:0.65rem;
+    letter-spacing:0.06em;
+    color:var(--teal);
+    border:1px solid var(--teal);
+    padding:2px 6px;
+    border-radius:2px;
+  }
+
+  /* ---------- projects ---------- */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+    gap:28px;
+  }
+  .project-card{ padding:0; overflow:hidden; }
+  .project-card img{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    filter:sepia(0.1);
+    border-bottom:1px solid var(--line);
+    display:block;
+  }
+  .project-body{ padding:20px 22px 22px 40px; }
+  .project-body h3{
+    font-family:'Special Elite', monospace;
+    font-size:1.05rem;
+    margin:6px 0 8px;
+  }
+  .project-body p{ margin:0 0 14px; color:var(--ink-soft); font-size:0.92rem; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .tag-row span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.05em;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    padding:3px 7px;
+    text-transform:uppercase;
+  }
+  .project-body a.view-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    border-bottom:1px solid var(--stamp);
+    padding-bottom:1px;
+  }
+
+  /* ---------- resume ---------- */
+  .resume-card{
+    padding:40px 40px 36px 56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .resume-card h2{ font-family:'Special Elite', monospace; font-size:1.3rem; margin:0 0 8px; }
+  .resume-card p{ margin:0; color:var(--ink-soft); max-width:420px; }
+  .request-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--paper);
+    background:var(--stamp);
+    padding:14px 24px;
+    border:1px solid var(--stamp);
+    display:inline-block;
+    transition:opacity 0.2s;
+    white-space:nowrap;
+  }
+  .request-btn:hover{ opacity:0.85; }
+
+  /* ---------- contact ---------- */
+  .contact-card{ padding:40px 40px 36px 56px; }
+  .contact-card h2{ font-family:'Special Elite', monospace; font-size:1.3rem; margin:0 0 22px; }
+  .field-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px dashed var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.88rem;
+  }
+  .field-row:last-child{ border-bottom:none; }
+  .field-row .label{ color:var(--ink-soft); letter-spacing:0.06em; text-transform:uppercase; font-size:0.72rem; align-self:center; }
+  .field-row a{ text-decoration:none; }
+  .field-row a:hover{ text-decoration:underline; }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--paper-dark);
+    padding:26px 24px;
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+  }
+  footer a{ color:var(--paper-dark); }
+  footer .foot-links{ margin-top:8px; }
+  footer .foot-links a{ margin:0 8px; text-decoration:none; border-bottom:1px solid rgba(231,221,198,0.4); }
+
+  @media (max-width: 700px){
+    .about-grid{ grid-template-columns:1fr; }
+    .photo-card{ max-width:220px; }
+    .bio-card h2, .bio-card p, .project-body h3{ margin-left:0; }
+    .resume-card, .contact-card{ padding:32px 24px 28px 40px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="drawer-label">
+    <span class="drawer-tag">Catalog Drawer · P–Z</span>
+    <h1 class="name">Arpit Sharma</h1>
+    <p class="tagline">A first year student at KIT Deemed to be University</p>
+    <nav class="index-tabs">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="section-label">Card 01 · About</div>
+  <div class="about-grid">
+    <div class="photo-card card">
+      <img src="C:\Users\ARPIT\Downloads\WhatsApp Image 2026-08-06 at 6.16.58 PM.jpeg" alt="Photo of Arpit Sharma">
+      <div class="photo-caption">FIG. 1 — Arpit Sharma, 2026</div>
+    </div>
+    <div class="bio-card card">
+      <div class="stamp">On File</div>
+      <span class="call-number">REF / BIO-001</span>
+      <h2>Who I am</h2>
+      <p>A student who has just joined college pursuing B.Tech in Computer Science.</p>
+      <p>Learned python and html basics in my school</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="section-label">Card 02 · Skills</div>
+  <div class="skills-grid">
+    <div class="skill-chip card"><span>HTML &amp; CSS</span><span class="lvl">Beg</span></div>
+    <div class="skill-chip card"><span>Python</span><span class="lvl">Int</span></div>
+    <div class="skill-chip card"><span>C++ &amp; C language</span><span class="lvl">Beg</span></div>
+    <div class="skill-chip card"><span>Prompting </span><span class="lvl">Int</span></div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="section-label">Card 03 · Projects</div>
+  <div class="projects-grid">
+
+    <div class="project-card card">
+      <img src="https://placehold.co/560x340/3a6a63/f1e9d4?text=Project+One" alt="Screenshot of Project One">
+      <div class="project-body">
+        <span class="call-number">PROJ-01</span>
+        <h3>Snakes and Ladder</h3>
+        <p>A Game that can be run on terminal only</p>
+        <div class="tag-row"><span>Python</span></div>
+      </div>
+    </div>
+
+    <div class="project-card card">
+      <img src="https://placehold.co/560x340/a0402b/f1e9d4?text=Project+Two" alt="Screenshot of Project Two">
+      <div class="project-body">
+        <span class="call-number">PROJ-02</span>
+        <h3>Bank Management System</h3>
+        <p>A functioning Bank Database Management system </p>
+        <div class="tag-row"><span>Python</span><span>MySQL</span></div>
+      </div>
+    </div>
+
+
+<!-- ================= RESUME ================= -->
+<section id="resume">
+  <div class="section-label">Card 04 · Resume</div>
+  <div class="resume-card card">
+    <div>
+      <h2>Request the full record</h2>
+      <p>Download a PDF copy of my resume for the complete work history, education, and references.</p>
+    </div>
+    <a class="request-btn" href="C:\Users\ARPIT\Downloads\Resume_Arpit_Sharma.pdf" download>Download Resume (PDF)</a>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="section-label">Card 05 · Contact</div>
+  <div class="contact-card card">
+    <h2>Get in touch</h2>
+    <div class="field-row">
+      <span class="label">Email</span>
+      <a href="mailto:arpitsharma2k09@gmail.com">arpitsharma2k09@gmail.com</a>
+    </div>
+    <div class="field-row">
+      <span class="label">Phone</span>
+      <a href="tel:+919354614716">+91 93546 14716</a>
+    </div>
+    <div class="field-row">
+      <span class="label">Location</span>
+      <span>225 Makanpur, Indirapuram, Ghaziabad, Uttar Pradesh, India</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Elsewhere</span>
+      <span>
+        <a href="arpitsharma2k09-beep">GitHub</a> · <a href="arpit-sharma-735390423">LinkedIn</a> 
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>&copy; <span id="year"></span> Arpit Sharma. All rights reserved.</div>
+  <div class="foot-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

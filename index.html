@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Attendance Management System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Attendance</h1>
+  <nav id="nav">
+    <button data-tab="dashboard" class="active">Dashboard</button>
+    <button data-tab="students">Students</button>
+    <button data-tab="mark">Mark Attendance</button>
+    <button data-tab="reports">Reports</button>
+  </nav>
+</header>
+
+<main>
+  <!-- Dashboard -->
+  <section id="tab-dashboard">
+    <div class="grid" id="stats"></div>
+    <div class="card" style="margin-top:20px">
+      <h2>Needs attention · below 75%</h2>
+      <div id="lowList"></div>
+    </div>
+    <div class="card">
+      <h2>Data</h2>
+      <div class="row">
+        <button class="btn sec" id="demoBtn">Load demo data</button>
+        <button class="btn danger" id="resetBtn">Delete all data</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Students -->
+  <section id="tab-students" class="hidden">
+    <div class="card">
+      <h2>Add student</h2>
+      <form id="studentForm" class="row">
+        <div><label for="sRoll">Roll no.</label><input id="sRoll" required style="width:110px"></div>
+        <div><label for="sName">Full name</label><input id="sName" required style="width:220px"></div>
+        <div><label for="sClass">Class / section</label><input id="sClass" placeholder="e.g. 10-A" required style="width:120px"></div>
+        <button class="btn" type="submit">Add</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>All students</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Roll</th><th>Name</th><th>Class</th><th></th></tr></thead>
+        <tbody id="studentRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- Mark -->
+  <section id="tab-mark" class="hidden">
+    <div class="card">
+      <h2>Mark attendance</h2>
+      <div class="row" style="margin-bottom:14px">
+        <div><label for="mDate">Date</label><input type="date" id="mDate"></div>
+        <div><label for="mClass">Class</label><select id="mClass"></select></div>
+        <button class="btn sec" id="allPresent">All present</button>
+        <button class="btn sec" id="allAbsent">All absent</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Roll</th><th>Name</th><th>Status</th></tr></thead>
+        <tbody id="markRows"></tbody>
+      </table></div>
+      <div class="row" style="margin-top:16px;justify-content:space-between">
+        <span id="markSummary" class="hint"></span>
+        <button class="btn" id="saveAtt">Save attendance</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reports -->
+  <section id="tab-reports" class="hidden">
+    <div class="card">
+      <h2>Attendance report</h2>
+      <div class="row" style="margin-bottom:14px">
+        <div><label for="rFrom">From</label><input type="date" id="rFrom"></div>
+        <div><label for="rTo">To</label><input type="date" id="rTo"></div>
+        <div><label for="rClass">Class</label><select id="rClass"></select></div>
+        <button class="btn sec" id="csvBtn">Export CSV</button>
+      </div>
+      <div id="csvBox" class="hidden" style="margin-bottom:14px">
+        <p class="hint">Copy this and paste into a text file, or save it as <b>.csv</b> to open in Excel.</p>
+        <textarea id="csvText" readonly></textarea>
+        <button class="btn small" id="copyCsv" style="margin-top:6px">Copy</button>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Roll</th><th>Name</th><th>Present</th><th>Late</th><th>Absent</th><th>Days</th><th>%</th><th style="width:110px"></th></tr></thead>
+        <tbody id="reportRows"></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h2>Student history</h2>
+      <div class="row" style="margin-bottom:12px">
+        <div><label for="hStudent">Student</label><select id="hStudent"></select></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Date</th><th>Status</th></tr></thead>
+        <tbody id="historyRows"></tbody>
+      </table></div>
+    </div>
+  </section>
+</main>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <p id="modalMsg"></p>
+    <div class="row" style="justify-content:flex-end">
+      <button class="btn sec" id="modalNo">Cancel</button>
+      <button class="btn danger" id="modalYes">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
